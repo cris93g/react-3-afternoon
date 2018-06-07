@@ -53,7 +53,14 @@ export default class Post extends Component {
     // This is destructuring! You can also think of it as being written as so:
     // const editing = this.state.editing
     // const showMasterMenu = this.state.showMasterMenu
-    const { text, date, id, deletePostFn, createPostFn } = this.props;
+    const {
+      text,
+      date,
+      id,
+      deletePostFn,
+      createPostFn,
+      updatePostFn
+    } = this.props;
 
     const { editing, showMasterMenu } = this.state;
 
@@ -95,14 +102,12 @@ export default class Post extends Component {
               }
         */}
         <div className="Post__content">
-          {// This has been pulled off of this.state via destructuring
-          editing ? (
+          {editing ? (
             <Edit
               text={text}
-              id={this.props.id}
+              id={id}
               hideEdit={this.hideEdit}
-              updatePostFn={this.props.updatePostFn}
-              deletePostFn={this.props.deletePostFn}
+              updatePostFn={updatePostFn}
             />
           ) : (
             <span className="Post__text">{text}</span>

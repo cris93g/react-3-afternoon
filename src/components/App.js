@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+
 import "./App.css";
 
 import Header from "./Header/Header";
@@ -27,11 +28,9 @@ class App extends Component {
 
   updatePost(id, text) {
     axios
-      .put("https://practiceapi.devmountain.com/api.posts? id = ${id}", {
-        text
-      })
+      .put(`https://practiceapi.devmountain.com/api/posts?id=${id}`, { text })
       .then(results => {
-        this.setState({ post: results.data });
+        this.setState({ posts: results.data });
       });
   }
 
@@ -42,10 +41,9 @@ class App extends Component {
         this.setState({ posts: results.data });
       });
   }
-
   createPost(text) {
     axios
-      .post(`https://practiceapi.devmountain.com/api/post`, { text })
+      .post("https://practiceapi.devmountain.com/api/posts", { text })
       .then(results => {
         this.setState({ posts: results.data });
       });
@@ -60,12 +58,13 @@ class App extends Component {
 
         <section className="App__content">
           <Compose createPostFn={this.createPost} />
+
           {posts.map(post => (
             <Post
               key={post.id}
+              id={post.id}
               text={post.text}
               date={post.date}
-              id={post.id}
               updatePostFn={this.updatePost}
               deletePostFn={this.deletePost}
             />
